@@ -53,8 +53,10 @@ public class BaseDao<T> extends HibernateDaoSupport implements I_BaseDao<T> {
     @Override
     public List<T> list(String hql, Object[] args) {
         Query query = getSessionFactory().getCurrentSession().createQuery(hql);
-        for (int i = 0; i < args.length ; i++){
-            query.setParameter(i , args[i]);
+        if (args != null){
+            for (int i = 0; i < args.length ; i++){
+                query.setParameter(i , args[i]);
+            }
         }
         List<T> list = query.list();
         return list;
